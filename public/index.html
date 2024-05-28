@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Socket server</title>
+    <title>SocketServer</title>
   </head>
   <body>
     <h1>Acceso denegado</h1>
+
     <script src="socket.io/socket.io.js"></script>
+
     <script>
       var socket = io();
 
@@ -19,12 +21,15 @@
         console.log('Perdimos comunicación con el servidor');
       });
 
-      // emit manda
-      socket.emit('mensaje', { nombre: 'Marcela' });
+      socket.emit('mensaje', { nombre: 'Fernando' });
 
-      //on para escuchar
-      socket.on('mensaje', function (payload) {
-        console.log('Escuchando', payload);
+      socket.on('nuevo-mensaje', function (payload) {
+        console.log('Escuhando:', payload);
+      });
+
+      socket.on('active-bands', function (bands) {
+        console.clear();
+        console.table(bands);
       });
     </script>
   </body>

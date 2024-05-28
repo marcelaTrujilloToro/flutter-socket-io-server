@@ -2,26 +2,20 @@ const express = require('express');
 const path = require('path');
 require('dotenv').config();
 
-//? app de express
+// App de Express
 const app = express();
 
-//
-//?Node server
+// Node Server
 const server = require('http').createServer(app);
 module.exports.io = require('socket.io')(server);
+require('./sockets/sockets.js');
 
-//
-//? mensajes de sockets
-require('./sockets/sockets');
-
-//
-//?Path publico
+// Path público
 const publicPath = path.resolve(__dirname, 'public');
-
 app.use(express.static(publicPath));
 
 server.listen(process.env.PORT, (err) => {
   if (err) throw new Error(err);
 
-  console.log(`App listening on port: ${process.env.PORT}`);
+  console.log('Servidor corriendo en puerto', process.env.PORT);
 });
